@@ -24,7 +24,7 @@ async function sendMessage() {
 
     try {
         // Use free Gemini API (Get your own key from ai.google.dev for production - free tier 15 RPM)
-        const API_KEY = "AIzaSyBOwi7yvT9UuhLBwop6wzcuV6sJIE8g9Yo"; // Placeholder - replace with real free key
+        const API_KEY = "AIzaSyBoyju4qjKntGeJ4bOhi4M3nMf9mj3M-Eg"; // Placeholder - replace with real free key
         const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
