@@ -11,7 +11,7 @@ async function sendMessage() {
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
-        const API_KEY = process.env.GEMINI_API_KEY;  // Vercel env se secure
+        const API_KEY = "AIzaSyBtD9Sv3q2Z6vP1f4YxRtAEcr7rWPHi9hY"
         if (!API_KEY) {
             throw new Error("GEMINI_API_KEY env variable missing!");
         }
