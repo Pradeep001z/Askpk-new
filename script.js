@@ -11,39 +11,25 @@ async function sendMessage() {
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
-        console.log("Sending request to Puter.js...");  // Debug for mobile test
-
-        const res = await fetch('https://api.puter.com/v2/completions', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                model: 'gpt-4o-mini',  // Free high-quality model, Nepali support
-                messages: [{role: 'user', content: `Simple Nepali or English answer for Nepal student question (Class 1-12, SEE, +2, Loksewa): ${question}. Keep it short, educational, and accurate.`}],
-                temperature: 0.7,
-                max_tokens: 400
-            })
+        // Puter.js SDK - Free unlimited chat (no key!)
+        const response = await puter.ai.chat({
+            prompt: `Simple Nepali or English answer for Nepal student question (Class 1-12, SEE, +2, Loksewa): ${question}. Keep it short, educational, and accurate.`,
+            model: 'gpt-4o-mini',  // Free high-quality model
+            temperature: 0.7,
+            max_tokens: 400,
+            stream: false  // Set true for real-time if needed
         });
 
-        console.log("Response status:", res.status);  // Debug
+        console.log("Puter response:", response);  // Debug
 
-        if (!res.ok) {
-            const errorText = await res.text();
-            throw new Error(`Error: ${res.status} - ${errorText}`);
-        }
-
-        const data = await res.json();
-        if (!data.choices || data.choices.length === 0) {
-            throw new Error("No response from AI");
-        }
-
-        const answer = data.choices[0].message.content;
+        const answer = response.text || response;  // Response format handle
         loadingMsg.remove();
         addMessage(answer.replace(/\n/g, "<br>"), "bot", true);
     } catch (e) {
-        console.error("Full error:", e);  // Mobile debug
+        console.error("Error:", e);
         loadingMsg.remove();
         addMessage(`माफ गर्नुहोस्, समस्या भयो। फेरि प्रयास गर्नुहोस्। (Error: ${e.message})`, "bot");
     }
 }
 
-// Rest of your code (addMessage, etc.) remains same
+// Rest of code (addMessage, etc.) same
