@@ -11,25 +11,26 @@ async function sendMessage() {
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
-        // Puter.js SDK - Free unlimited chat (no key!)
-        const response = await puter.ai.chat({
-            prompt: `Simple Nepali or English answer for Nepal student question (Class 1-12, SEE, +2, Loksewa): ${question}. Keep it short, educational, and accurate.`,
+        // Puter.js SDK - Correct syntax: prompt string + options object
+        const prompt = `Simple Nepali or English answer for Nepal student question (Class 1-12, SEE, +2, Loksewa): ${question}. Keep it short, educational, and accurate.`;
+        const response = await puter.ai.chat(prompt, {
             model: 'gpt-4o-mini',  // Free high-quality model
             temperature: 0.7,
             max_tokens: 400,
-            stream: false  // Set true for real-time if needed
+            stream: false  // Non-stream for simple response
         });
 
-        console.log("Puter response:", response);  // Debug
+        console.log("Puter response:", response);  // Debug: Browser console mein dekho
 
-        const answer = response.text || response;  // Response format handle
+        // Response is simple text, so direct use kar
+        const answer = response || "No response received.";  // Fallback if empty
         loadingMsg.remove();
         addMessage(answer.replace(/\n/g, "<br>"), "bot", true);
     } catch (e) {
-        console.error("Error:", e);
+        console.error("Full error:", e);  // Debug
         loadingMsg.remove();
         addMessage(`माफ गर्नुहोस्, समस्या भयो। फेरि प्रयास गर्नुहोस्। (Error: ${e.message})`, "bot");
     }
 }
 
-// Rest of code (addMessage, etc.) same
+// Rest of your code (addMessage function, etc.) same rakh
