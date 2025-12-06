@@ -11,17 +11,21 @@ async function sendMessage() {
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
-        const res = await fetch("https://46cb831f.askpk.pages.dev/api/chat", {
+        const res = await fetch("https://askpkai.pradeep6292p.workers.dev/api/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ question })
         });
+
+        if (!res.ok) {
+            throw new Error(`Error: ${res.status}`);
+        }
 
         const data = await res.json();
         loadingMsg.remove();
         addMessage(data.answer.replace(/\n/g, "<br>"), "bot", true);
     } catch (e) {
         loadingMsg.remove();
-        addMessage("Server busy, 10 sec baad try kar!", "bot");
+        addMessage(`माफ गर्नुहोस्, समस्या भयो। फेरि प्रयास गर्नुहोस्। (Error: ${e.message})`, "bot");
     }
 }
