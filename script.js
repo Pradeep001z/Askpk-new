@@ -11,7 +11,7 @@ async function sendMessage() {
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
-        const res = await fetch("https://askpkai.pradeep6292p.workers.dev/api/chat", {
+        const res = await fetch("https://askpkai.pradeep6292p.workers.dev", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ question })
